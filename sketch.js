@@ -16,6 +16,15 @@ function drawKeypoints() {
   }
 }
 
+function gotHand(results) {
+  if (results.length == 0) {
+    keypoints = [];
+    return;
+  }
+  const { landmarks } = results[0];
+  keypoints = landmarks.map(landmark => ({ x: landmark[0], y: landmark[1] }));
+}
+
 function setup() {
   createCanvas(600, 600);
   cam = createCapture(VIDEO);
@@ -25,15 +34,6 @@ function setup() {
     console.log('Handpose model loaded.')
   });
   handpose.on('predict', gotHand);
-}
-
-function gotHand(results) {
-  if (results.length == 0) {
-    keypoints = [];
-    return;
-  }
-  const { landmarks } = results[0];
-  keypoints = landmarks.map(landmark => ({ x: landmark[0], y: landmark[1] }));
 }
 
 function draw() {
