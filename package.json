@@ -1,0 +1,20 @@
+{
+  "name": "video-digit-classifier",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sketch.js",
+  "scripts": {
+    "start": "npx live-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zuldruck/video-digit-classifier.git"
+  },
+  "author": "Lucas SANCHEZ",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zuldruck/video-digit-classifier/issues"
+  },
+  "homepage": "https://github.com/Zuldruck/video-digit-classifier#readme"
+}
