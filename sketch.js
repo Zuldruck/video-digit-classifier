@@ -5,6 +5,24 @@ let cam;
 let handpose;
 let keypoints = [];
 
+function gotHand(results) {
+  if (results.length == 0) {
+    keypoints = [];
+    return;
+  }
+  const { landmarks } = results[0];
+  keypoints = landmarks.map(landmark => ({ x: landmark[0], y: landmark[1] }));
+}
+
+function setup() {
+  createCanvas(600, 600);
+  cam = createCapture(VIDEO);
+  cam.hide();
+
+  handpose = ml5.handpose(cam, () => console.log('Handpose model loaded.'));
+  handpose.on('predict', gotHand);
+}
+
 function drawCam() {
   push();
   translate(600, 0);
@@ -24,26 +42,6 @@ function drawKeypoints() {
     ellipse(keypoint.x, keypoint.y, 10, 10);
   }
   pop();
-}
-
-function gotHand(results) {
-  if (results.length == 0) {
-    keypoints = [];
-    return;
-  }
-  const { landmarks } = results[0];
-  keypoints = landmarks.map(landmark => ({ x: landmark[0], y: landmark[1] }));
-}
-
-function setup() {
-  createCanvas(600, 600);
-  cam = createCapture(VIDEO);
-  cam.hide();
-
-  handpose = ml5.handpose(cam, () => {
-    console.log('Handpose model loaded.')
-  });
-  handpose.on('predict', gotHand);
 }
 
 function draw() {
