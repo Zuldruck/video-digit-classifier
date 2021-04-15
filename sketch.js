@@ -5,7 +5,7 @@ let cam;
 let handpose;
 let keypoints = [];
 
-function gotHand(results) {
+function onHandCapture(results) {
   if (results.length == 0) {
     keypoints = [];
     return;
@@ -20,7 +20,7 @@ function setup() {
   cam.hide();
 
   handpose = ml5.handpose(cam, () => console.log('Handpose model loaded.'));
-  handpose.on('predict', gotHand);
+  handpose.on('predict', onHandCapture);
 }
 
 function drawCam() {
