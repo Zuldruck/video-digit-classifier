@@ -1,4 +1,7 @@
+// Camera capture
 let cam;
+
+// HandPose
 let handpose;
 let keypoints = [];
 
