@@ -6,17 +6,23 @@ let handpose;
 let keypoints = [];
 
 function drawCam() {
+  push();
   translate(600, 0);
   scale(-1, 1);
   image(cam, 0, 0, 600, 450);
+  pop();
 }
 
 function drawKeypoints() {
+  push();
+  translate(600, 0);
+  scale(-1, 1);
   for (const keypoint of keypoints) {
     fill(0, 255, 0);
     noStroke();
     ellipse(keypoint.x, keypoint.y, 10, 10);
   }
+  pop();
 }
 
 function gotHand(results) {
