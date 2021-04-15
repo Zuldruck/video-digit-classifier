@@ -23,6 +23,9 @@ const trainingOptions = {
 let neuralNetwork;
 let modelLoaded = false;
 
+// Classified label
+let label = '';
+
 function onHandCapture(results) {
   if (results.length == 0) {
     keypoints = [];
@@ -30,6 +33,13 @@ function onHandCapture(results) {
   }
   const { landmarks } = results[0];
   keypoints = landmarks.map(landmark => ({ x: landmark[0], y: landmark[1] }));
+  const inputs = [];
+  for (const { x, y } of keypoints) {
+    inputs.push(x);
+    inputs.push(y);
+  }
+  if (modelLoaded)
+    neuralNetwork.classify(inputs, (_, results) => label = results[0].label);
 }
 
 function onModelLoad() {
@@ -74,4 +84,7 @@ function draw() {
   background(220);
   drawCam();
   drawKeypoints();
+  textSize(46);
+  fill(0, 0, 0);
+  text(label, 30, 50);
 }
