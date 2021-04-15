@@ -5,6 +5,24 @@ let cam;
 let handpose;
 let keypoints = [];
 
+// Own Neural Network
+const neuralNetworkOptions = {
+  task: 'classification',
+  inputs: 42,
+  outputs: 5,
+};
+const modelDetails = {
+  model: 'model/model.json',
+  metadata: 'model/model_meta.json',
+  weights: 'model/model.weights.bin'
+};
+const trainingOptions = {
+  epochs: 10,
+  batchSize: 12,
+};
+let neuralNetwork;
+let modelLoaded = false;
+
 function onHandCapture(results) {
   if (results.length == 0) {
     keypoints = [];
@@ -14,6 +32,11 @@ function onHandCapture(results) {
   keypoints = landmarks.map(landmark => ({ x: landmark[0], y: landmark[1] }));
 }
 
+function onModelLoad() {
+  console.log('Neural network model loaded.');
+  modelLoaded = true;
+}
+
 function setup() {
   createCanvas(600, 450);
   cam = createCapture(VIDEO);
@@ -21,6 +44,9 @@ function setup() {
 
   handpose = ml5.handpose(cam, () => console.log('Handpose model loaded.'));
   handpose.on('predict', onHandCapture);
+
+  neuralNetwork = ml5.neuralNetwork(neuralNetworkOptions);
+  neuralNetwork.load(modelDetails, onModelLoad);
 }
 
 function drawCam() {
