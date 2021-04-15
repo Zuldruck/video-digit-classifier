@@ -15,7 +15,7 @@ function onHandCapture(results) {
 }
 
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(600, 450);
   cam = createCapture(VIDEO);
   cam.hide();
 
