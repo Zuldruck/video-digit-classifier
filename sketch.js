@@ -10,6 +10,7 @@ function drawCam() {
   translate(600, 0);
   scale(-1, 1);
   image(cam, 0, 0, 600, 450);
+  filter(INVERT);
   pop();
 }
 
